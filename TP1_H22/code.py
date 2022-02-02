@@ -1,8 +1,8 @@
 def make_critical_pt(list_building):
     list_critical = []
     for elem in list_building:
-        list_critical.append((elem[0], elem[2]))
-        list_critical.append((elem[1], 0))
+        list_critical.append([elem[0], elem[2]])
+        list_critical.append([elem[1], 0])
     list_critical.sort()
     return list_critical
 
@@ -18,9 +18,7 @@ def naive(list_buildings):
         for building in list_buildings:
             if is_in_building(crit, building):
                 if crit[1] < building[2]:
-                    x = list(crit)
-                    x[1] = building[2]
-                    crit = tuple(x)
+                    crit[1] = building[2]
         sol.append(crit)
         if idx != 0:
             if sol[-1][1] == sol[-2][1]:
@@ -35,11 +33,12 @@ def divide(list_buildings):
     else:
         sol1 = divide(list_buildings[:len(list_buildings)//2])
         sol2 = divide(list_buildings[len(list_buildings)//2:])
-        return merge_2(sol1, sol2)
+        return merge(sol1, sol2)
 
 
 def merge(skl_1, skl_2):
     skl = skl_1 + skl_2
+    print(skl)
     skl.sort()
     h1 = 0
     h2 = 0
@@ -49,16 +48,15 @@ def merge(skl_1, skl_2):
             h1 = elem[1]
         else:
             h2 = elem[1]
-        x = list(elem)
-        x[1] = max(h1, h2)
-        elem = tuple(x)
+        elem[1] = max(h1, h2)
         sol.append(elem)
         if idx != 0:
-            if sol[-1][1] == sol[-2][1]:
+            if sol[-1][1] == sol[-2][1]: #same height
                 sol.pop()
-            elif sol[-1][0] == sol[-2][0]:
+            elif sol[-1][0] == sol[-2][0]: #same x coordinate
                 min_h = min(sol[-1][1], sol[-2][1])
-                sol.remove((sol[-1][0], min_h))
+                sol.remove([sol[-1][0], min_h]) #remove the smallest height
+    sol[-1][1] = 0
     return sol
 
 
@@ -83,18 +81,15 @@ def merge_2(skl_1, skl_2):
         sol + skl_1[i1:]
     return sol
 
-
-with open("N1000_0", 'r') as pointFile:
+with open("I1", 'r') as pointFile:
     pointList = []
     next(pointFile)
     for x in pointFile:
         a, b, c = (int(x) for x in x.split())
         pointList.append((a, b, c))
-    d = naive(pointList[0:20])
-    a = len(d)
-    c = divide(pointList[0:20])
-    print(d)
-    print(c)
-    b = len(c)
-    print(a)
-    print(b)
+    result_naive = naive(pointList)
+    #print(result_naive)
+    result_divide = divide(pointList)
+    #print(result_divide)
+    #print([result_divide.index(item) for item in result_divide if item not in result_naive])
+    print(result_naive == result_divide)
