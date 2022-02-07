@@ -1,4 +1,5 @@
 from collections import deque
+import os,glob
 
 
 def make_critical_pt(list_building):
@@ -62,45 +63,37 @@ def merge(skl_1, skl_2):
         sol[-1][1] = 0
         return sol
 
-def divide(list_buildings):
+def divide(list_buildings, threshold = 1):
     
-    if len(list_buildings) == 1:
+    if len(list_buildings) <= threshold:
         return naive(list_buildings)
     else:
         sol1 = divide(list_buildings[:len(list_buildings)//2])
         sol2 = divide(list_buildings[len(list_buildings)//2:])
         return merge(sol1, sol2)
 
-def merge_2(skl_1, skl_2):
-    h1 = 0
-    h2 = 0
-    sol = []
-    i1 = 0
-    i2 = 0
-    while i1 < len(skl_1) and i2 < len(skl_2):
-        if skl_1[i1][0] < skl_2[i2][0]:
-            h1 = skl_1[i1][1]
-            sol.append((skl_1[i1][0], max(h1, h2)))
-            i1 += 1
-        else:
-            h2 = skl_2[i2][1]
-            sol.append((skl_2[i2][0], max(h1, h2)))
-            i2 += 1
-    if i1 == len(skl_1):
-        sol + skl_2[i2:]
-    else:
-        sol + skl_1[i1:]
-    return sol
 
-with open("N1000_0", 'r') as pointFile:
-    pointList = []
-    next(pointFile)
-    for x in pointFile:
-        a, b, c = (int(x) for x in x.split())
-        pointList.append((a, b, c))
+def solve_skyline(path):
+    with open(path, 'r') as pointFile:
+        pointList = []
+        next(pointFile)
+        for x in pointFile:
+            a, b, c = (int(x) for x in x.split())
+            pointList.append((a, b, c))
     result_naive = naive(pointList)
     #print(result_naive)
     result_divide = divide(pointList)
     #print(result_divide)
-    print([result_divide.index(item) for item in result_divide if item not in result_naive])
+    #print([result_divide.index(item) for item in result_divide if item not in result_naive])
     print(result_naive == result_divide)
+
+if __name__ == '__main__':
+
+    solve_skyline("test/N10000_0")
+
+
+    # sizes = {"1000","5000","10000","50000","100000","500000"}
+    # n_samples = 5
+    # for n in range(n_samples):
+    #     for s in sizes:
+    #         solve_skyline(f"./test/N{s}_{n}")
