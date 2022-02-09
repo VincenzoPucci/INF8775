@@ -72,6 +72,11 @@ def divide(list_buildings, threshold = 1):
         sol2 = divide(list_buildings[len(list_buildings)//2:])
         return merge(sol1, sol2)
 
+def print_results(result, option = "-p"):
+    if option == "-p":
+        for i in result:
+            print(f"{i[0]} {i[1]}")
+
 
 def solve_skyline(path):
     with open(path, 'r') as pointFile:
@@ -81,15 +86,18 @@ def solve_skyline(path):
             a, b, c = (int(x) for x in x.split())
             pointList.append((a, b, c))
     result_naive = naive(pointList)
-    #print(result_naive)
+    print_results(result_naive, "-p")
     result_divide = divide(pointList)
     #print(result_divide)
+
+    #check if both algorithms return same answer
+    #print(result_naive == result_divide)
     #print([result_divide.index(item) for item in result_divide if item not in result_naive])
-    print(result_naive == result_divide)
+
 
 if __name__ == '__main__':
 
-    solve_skyline("test/N10000_0")
+    solve_skyline("test/N1000_0")
 
 
     # sizes = {"1000","5000","10000","50000","100000","500000"}
