@@ -90,13 +90,14 @@ def plot_performance():
     plt.show()
 
 def plot_puissance():
-    list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20,
-                        30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
+    #list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20,
+    #                    30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
+    list_size_sample = [500,1000, 5000, 10000, 50000, 100000, 500000]
     list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
-        list_size_sample, 10)
+        list_size_sample, 5)
         
     plt.figure()
-    plt.scatter(list_size_sample, list_time_threshold, label="diviser pour regner avec seuil") 
+    plt.scatter(list_size_sample, list_time_threshold, label="Diviser pour regner avec seuil") 
     plt.yscale("log")
     plt.xscale("log")
 
@@ -105,15 +106,12 @@ def plot_puissance():
     coeffs = np.polyfit(logA, logB, deg=1)
     poly = np.poly1d(coeffs)
     yfit = lambda x: np.exp(poly(np.log(x)))
-    plt.loglog(list_size_sample,yfit(list_size_sample), color = 'red')
+    plt.loglog(list_size_sample,yfit(list_size_sample), color = 'red', label = 'régression linéaire')
 
-    #m,b = np.polyfit(logA, logB, 1)
-    #x= np.array(list_size_sample)
-    #plt.plot(list_size_sample,m*x+b, color="red")
     plt.legend()
-    plt.xlabel("size_sample")
-    plt.ylabel("time (sec)")
-    plt.title("performance in function of sample size")
+    plt.xlabel("taille de l'exemplaire")
+    plt.ylabel("temps (sec)")
+    plt.title("Test puissance")
     plt.savefig("performance.png", format="png")
     plt.show()
 
@@ -122,7 +120,28 @@ def plot_rapport():
                         30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
     list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
         list_size_sample, 10)
-        
+    
+    for i, b in enumerate(list_time_threshold):
+        list_time_threshold[i] = b/(len(list_size_sample)*np.log2(len(list_size_sample)))
+
+    plt.figure()
+    plt.scatter(list_size_sample, list_time_threshold, label="diviser pour regner avec seuil")
+    plt.legend()
+    plt.xlabel("taille de l'exemplaire")
+    plt.ylabel("temps (sec)")
+    plt.title("Test du rapport")
+    plt.savefig("performance.png", format="png")
+    plt.show()
+
+
+def plot_constante():
+    list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
+        list_size_sample, 10)
+    
+    for i, b in enumerate(list_size_sample):
+        list_size_sample[i] = b/(len(list_size_sample)*np.log2(len(list_size_sample)))
+
     plt.figure()
     plt.scatter(list_size_sample, list_time_threshold, label="diviser pour regner avec seuil")
 
@@ -130,34 +149,11 @@ def plot_rapport():
     x= np.array(list_size_sample)
     plt.plot(list_size_sample,m*x+b, color="red")
     plt.legend()
-    plt.xlabel("size_sample")
-    plt.ylabel("time (sec)")
-    plt.title("performance in function of sample size")
-    plt.savefig("performance.png", format="png")
-    plt.show()
-
-
-def plot_constante():
-    list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20,
-                        30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
-    list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
-        list_size_sample, 10)
-    
-    for i, b in enumerate(list_size_sample):
-        list_size_sample[i] = b*b
-
-    plt.figure()
-    plt.scatter(list_size_sample, list_time_naive, label="diviser pour regner avec seuil")
-
-    m,b = np.polyfit(list_size_sample, list_time_naive, 1)
-    x= np.array(list_size_sample)
-    plt.plot(list_size_sample,m*x+b, color="red")
-    plt.legend()
-    plt.xlabel("size_sample")
-    plt.ylabel("time (sec)")
-    plt.title("performance in function of sample size")
+    plt.xlabel("taille de l'exemplaire")
+    plt.ylabel("temps (sec)")
+    plt.title("Test des constantes")
     plt.savefig("performance.png", format="png")
     plt.show()
 
 if __name__ == "__main__":
-    plot_puissance()
+    plot_constante()
