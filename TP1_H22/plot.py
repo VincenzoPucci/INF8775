@@ -96,7 +96,7 @@ def plot_puissance():
         list_size_sample, 10)
         
     plt.figure()
-    plt.scatter(list_size_sample, list_time_naive, label="diviser pour regner avec seuil") 
+    plt.scatter(list_size_sample, list_time_threshold, label="diviser pour regner avec seuil") 
     plt.yscale("log")
     plt.xscale("log")
 
@@ -160,4 +160,4 @@ def plot_constante():
     plt.show()
 
 if __name__ == "__main__":
-    plot_constante()
+    plot_puissance()
