@@ -1,6 +1,8 @@
 from collections import deque
 import time
+from turtle import color
 import matplotlib.pyplot as plt
+import numpy as np
 
 from brute import naive
 from divide import divide
@@ -87,6 +89,75 @@ def plot_performance():
     plt.savefig("performance.png", format="png")
     plt.show()
 
+def plot_puissance():
+    list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20,
+                        30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
+    list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
+        list_size_sample, 10)
+        
+    plt.figure()
+    plt.scatter(list_size_sample, list_time_naive, label="diviser pour regner avec seuil") 
+    plt.yscale("log")
+    plt.xscale("log")
+
+    logA = np.log(list_size_sample)
+    logB = np.log(list_time_threshold)
+    coeffs = np.polyfit(logA, logB, deg=1)
+    poly = np.poly1d(coeffs)
+    yfit = lambda x: np.exp(poly(np.log(x)))
+    plt.loglog(list_size_sample,yfit(list_size_sample), color = 'red')
+
+    #m,b = np.polyfit(logA, logB, 1)
+    #x= np.array(list_size_sample)
+    #plt.plot(list_size_sample,m*x+b, color="red")
+    plt.legend()
+    plt.xlabel("size_sample")
+    plt.ylabel("time (sec)")
+    plt.title("performance in function of sample size")
+    plt.savefig("performance.png", format="png")
+    plt.show()
+
+def plot_rapport():
+    list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20,
+                        30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
+    list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
+        list_size_sample, 10)
+        
+    plt.figure()
+    plt.scatter(list_size_sample, list_time_threshold, label="diviser pour regner avec seuil")
+
+    m,b = np.polyfit(list_size_sample, list_time_threshold, 1)
+    x= np.array(list_size_sample)
+    plt.plot(list_size_sample,m*x+b, color="red")
+    plt.legend()
+    plt.xlabel("size_sample")
+    plt.ylabel("time (sec)")
+    plt.title("performance in function of sample size")
+    plt.savefig("performance.png", format="png")
+    plt.show()
+
+
+def plot_constante():
+    list_size_sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20,
+                        30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500]
+    list_time_naive, list_time_divide, list_time_threshold = perf_threshold(
+        list_size_sample, 10)
+    
+    for i, b in enumerate(list_size_sample):
+        list_size_sample[i] = b*b
+
+    plt.figure()
+    plt.scatter(list_size_sample, list_time_naive, label="diviser pour regner avec seuil")
+
+    m,b = np.polyfit(list_size_sample, list_time_naive, 1)
+    x= np.array(list_size_sample)
+    plt.plot(list_size_sample,m*x+b, color="red")
+    plt.legend()
+    plt.xlabel("size_sample")
+    plt.ylabel("time (sec)")
+    plt.title("performance in function of sample size")
+    plt.savefig("performance.png", format="png")
+    plt.show()
 
 if __name__ == "__main__":
-    plot_performance()
+    plot_constante()
