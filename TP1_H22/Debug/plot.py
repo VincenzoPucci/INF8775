@@ -4,9 +4,9 @@ from turtle import color
 import matplotlib.pyplot as plt
 import numpy as np
 
-from brute import naive, naive_old
-from divide import divide
-from threshold import threshold
+from remise.brute import naive, naive_old
+from remise.divide import divide
+from remise.threshold import threshold
 
 
 def print_results(result, option="-p", time=None):
