@@ -4,9 +4,9 @@ from turtle import color
 import matplotlib.pyplot as plt
 import numpy as np
 
-from remise.brute import naive, naive_old
-from remise.divide import divide
-from remise.threshold import threshold
+from brute import naive, naive_old
+from divide import divide
+from threshold import threshold
 
 
 def print_results(result, option="-p", time=None):
@@ -38,12 +38,12 @@ def solve_skyline(path, option="-p"):
     time_naive = time_fin - time_init
 
     time_init = time.perf_counter()
-    divide(pointList)
+    #divide(pointList)
     time_fin = time.perf_counter()
     time_divide = time_fin - time_init
 
     time_init = time.perf_counter()
-    threshold(pointList, 20)
+    #threshold(pointList, 20)
     time_fin = time.perf_counter()
     time_threshold = time_fin - time_init
 
@@ -191,6 +191,7 @@ def plot_rapport(list_time_naive, list_time_divide, list_time_threshold, list_si
     plt.figure()
     plt.scatter(list_size_sample, list_time_naive, label="bruteforce")
     plt.legend()
+    plt.ylim(0, 0.000001)
     plt.xlabel("taille de l'exemplaire")
     plt.ylabel("rapport y/f(x)")
     plt.title("Test du rapport")
@@ -270,7 +271,7 @@ def plot_constante(list_time_naive, list_time_divide, list_time_threshold, list_
 
 
 if __name__ == "__main__":
-    list_size_sample = [100, 500, 1000, 5000, 10000]
+    list_size_sample = [100, 500, 1000, 5000]
     n_run = 3  # number of run for each sample size (averaged)
     list_time_naive, list_time_divide, list_time_threshold = benchmark(
         list_size_sample, n_run)

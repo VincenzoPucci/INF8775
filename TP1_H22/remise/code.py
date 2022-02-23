@@ -2,7 +2,7 @@ import time
 from getopt import getopt
 import sys
 
-from brute import naive
+from brute import naive, naive_old
 from divide import divide
 from threshold import threshold
 
@@ -45,7 +45,7 @@ def main(argv):
     results = []
     if algoType == "brute":
         time_init = time.perf_counter()
-        results = naive(points)
+        results = naive_old(points)
         time_fin = time.perf_counter()
         diff = time_fin - time_init
 
