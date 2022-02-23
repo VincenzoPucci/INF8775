@@ -62,7 +62,7 @@ def main(argv):
         diff = time_fin - time_init
 
     if showTime:
-        print(f"{diff*1000} ms")
+        print(diff*1000)
     if showResults:
         for result in results:
             print(str(result[0]) + " " + str(result[1]))

@@ -13,6 +13,7 @@ log.json
 
 # Compiled Python bytecode
 *.pyc
+__pycache__/
 
 # Package files
 *.jar
