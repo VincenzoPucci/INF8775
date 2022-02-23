@@ -57,12 +57,12 @@ def main(argv):
 
     elif algoType == "seuil":
         time_init = time.perf_counter()
-        results = threshold(points, len(points)*0.3)
+        results = threshold(points, 20)
         time_fin = time.perf_counter()
         diff = time_fin - time_init
 
     if showTime:
-        print(diff*1000)
+        print(f"{diff*1000} ms")
     if showResults:
         for result in results:
             print(str(result[0]) + " " + str(result[1]))
