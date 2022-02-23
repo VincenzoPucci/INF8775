@@ -260,9 +260,8 @@ def plot_constante(list_time_naive, list_time_divide, list_time_threshold, list_
 
 
 if __name__ == "__main__":
-    #list_size_sample = [500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000]
-    list_size_sample = [500, 1000, 5000, 10000]
-    n_run = 1 #number of run for each sample size (averaged)
+    list_size_sample = [100, 500, 1000, 5000, 10000, 50000, 100000]
+    n_run = 3 #number of run for each sample size (averaged)
     list_time_naive, list_time_divide, list_time_threshold = benchmark(list_size_sample, n_run)
 
     #ouput runing time to txt
