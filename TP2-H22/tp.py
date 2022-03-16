@@ -1,4 +1,5 @@
 from glouton import glouton
+from dynamique import dynamique
 
 
 def getBlocks(path):
@@ -21,8 +22,14 @@ def getHeight(blocList: list):
 
 def main():
     blocList, areaList = getBlocks("./tests/b100_1.txt")
+    dynamList = dynamique(blocList.copy())
+    dynamHeight = getHeight(dynamList)
+    print(dynamList)
+    print(dynamHeight)
+
     gloutonList = glouton(blocList.copy())
     gloutonHeight = getHeight(gloutonList)
+    print(gloutonList)
     print(gloutonHeight)
 
 

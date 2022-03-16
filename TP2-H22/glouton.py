@@ -1,5 +1,4 @@
-def takeArea(bloc):
-    return bloc[1]*bloc[2]
+from utils import takeArea, fitsOnBloc
 
 
 def glouton(blocList: list):
@@ -8,6 +7,6 @@ def glouton(blocList: list):
     for bloc in blocList:
         if len(towerList) == 0:
             towerList.append(bloc)
-        elif bloc[1] < towerList[-1][1] and bloc[2] < towerList[-1][2]:
+        elif fitsOnBloc(towerList[-1], bloc):
             towerList.append(bloc)
     return towerList
