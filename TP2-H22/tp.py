@@ -1,16 +1,16 @@
 from glouton import glouton
 from dynamique import dynamique
+from tabou import tabou
+from utils import takeArea, fitsOnBloc
 
 
 def getBlocks(path):
     with open(path, 'r') as pointFile:
         pointList = []
-        areaList = []
         for x in pointFile:
             a, b, c = (int(x) for x in x.split())
             pointList.append((a, b, c))
-            areaList.append(b*c)
-    return pointList, areaList
+    return pointList
 
 
 def getHeight(blocList: list):
@@ -21,16 +21,20 @@ def getHeight(blocList: list):
 
 
 def main():
-    blocList, areaList = getBlocks("./tests/b100_1.txt")
-    dynamList = dynamique(blocList.copy())
-    dynamHeight = getHeight(dynamList)
-    print(dynamList)
-    print(dynamHeight)
+    blocList = getBlocks("./tests/b100_1.txt")
 
     gloutonList = glouton(blocList.copy())
-    gloutonHeight = getHeight(gloutonList)
-    print(gloutonList)
-    print(gloutonHeight)
+    #gloutonHeight = getHeight(gloutonList)
+    # print(gloutonList)
+    # print(gloutonHeight)
+
+    #dynamList = dynamique(blocList.copy())
+    #dynamHeight = getHeight(dynamList)
+    # print(dynamList)
+    # print(dynamHeight)
+
+    tabouList = tabou(blocList.copy(), gloutonList.copy())
+    print(tabouList)
 
 
 if __name__ == "__main__":

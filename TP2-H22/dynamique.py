@@ -1,7 +1,9 @@
 import imp
 from utils import takeArea, fitsOnBloc
 
-
+#On prend le dernier bloc ajouter dans results comme currentBloc
+#On trouve ensuite le bloc qui a le plus grand aire qui fit sur currentBloc et on l'ajoute a results et l'enlève de blocList
+# On construit la tour ainsi de façon récursive jusqu'à ce qui on ne trouve plus de bloc dans blocList qui fit sur currentBloc
 def dynamicRecursive(blocList, currentBloc, results, hauteur):
     nextBlocID = -1
     maxArea = 0
