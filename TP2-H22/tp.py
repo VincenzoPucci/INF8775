@@ -18,17 +18,19 @@ def main():
     gloutonList = glouton(blockList.copy())
     gloutonHeight = getHeight(gloutonList)
     #print(gloutonList)
-    #print(gloutonHeight)
+    print(f"glouton: {gloutonHeight}")
 
     dynamList = dynamique(blockList.copy())
     dynamHeight = getHeight(dynamList)
     #print(dynamList)
-    #print(dynamHeight)
+    print(f"dynamique: {dynamHeight}")
 
-    tabouSol = tabou(blockList.copy(), gloutonList.copy())
-    return tabouSol
+    tabouList = tabou(blockList.copy(), gloutonList.copy())
+    tabouHeight = getHeight(tabouList)
+    print(f"tabou: {tabouHeight}")
+    return tabouList
 
 if __name__ == "__main__":
     sol = main()
-    for l in sol:
-        print(str(l[0]) + " " + str(l[1]) + " " + str(l[2]))
+    #for l in sol:
+        #print(str(l[0]) + " " + str(l[1]) + " " + str(l[2]))
