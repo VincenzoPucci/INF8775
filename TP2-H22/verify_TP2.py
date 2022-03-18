@@ -31,7 +31,6 @@ import argparse
 
 def verify_candidate_stdout(candidate_file, target_pattern):
     lines = list(filter(lambda elmnt: elmnt != '', open(candidate_file, 'r').read().splitlines()))
-
     if len(lines) == 0:
         return 3, 0
 
@@ -63,7 +62,6 @@ if __name__ == "__main__":
                         action='store', required=True, metavar='FICHIER_SOLUTION')
 
     args = parser.parse_args()
-
     ec, height = verify_candidate_stdout(args.solution , desired_regex_pattern)
     if ec == 0:
         print("OK, height = " + str(height) + ".")

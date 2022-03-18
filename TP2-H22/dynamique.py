@@ -7,10 +7,9 @@ from utils import takeArea, fitsOnBloc
 def dynamicRecursive(blocList, currentBloc, results, hauteur):
     nextBlocID = -1
     maxArea = 0
-    for j, bloc in enumerate(blocList):
-        otherBloc = blocList[j]
+    for j, otherBloc in enumerate(blocList):
         if fitsOnBloc(currentBloc, otherBloc):
-            otherArea = otherBloc[1]*otherBloc[2]
+            otherArea = takeArea(otherBloc)
             if otherArea > maxArea:
                 maxArea = otherArea
                 nextBlocID = j

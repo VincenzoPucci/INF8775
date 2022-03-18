@@ -1,15 +1,35 @@
-from utils import takeArea, fitsOnBloc
+from sklearn import neighbors
+from utils import takeArea, fitsOnBloc, getHeight
 
-
-def tabou(blocList, gloutonList):
+def getNeighbors(blocList, initial_solution):
+    """returns list of neighbor solutions and list of tabou block of each neighbors"""
     tabouList = []
-    results = gloutonList.copy()
-    new = list(set(blocList).difference(set(gloutonList)))
-    for blocOut in new:
-        for blocIn in gloutonList:  # faut inverser gloutonList pour partir du top vers le bas
-            if fitsOnBloc(blocIn, blocOut):
-                idxIn = results.index(blocIn)+1
-                results.insert(idxIn, blocOut)
+    neighborsList = []
+    newBlock = list(set(blocList).difference(set(initial_solution)))
+    for blocOut in newBlock:
+        sol = initial_solution.copy() #initial solution
+        sol_tabou = [] #tabou block of the current solution
+        for blocIn in reversed(initial_solution):  #starting from the top of the solution
+            if fitsOnBloc(blocIn, blocOut): #try to insert the block
+                idxIn = sol.index(blocIn)+1
+                sol.insert(idxIn, blocOut)
+                for i in range(idxIn+2, len(sol)): #remove upper blocks that doesn't fit anymore
+                    if not fitsOnBloc(sol[i-1], sol[i]):
+                        sol.pop(i)
+                        sol_tabou.append(sol[i]) #add them to the solution's tabou list
+                neighborsList.append(sol)
+                tabouList.append(sol_tabou)
                 break
+    return neighborsList, tabouList
 
-    return results
+def tabou(blockList, gloutonList):
+    
+    neighborsList, tabouList = getNeighbors(blockList, gloutonList)
+    neighborsHeight = [getHeight(n) for n in neighborsList]
+    bestHeight = max(neighborsHeight)
+    bestHeightIdx = neighborsHeight.index(bestHeight)
+    #print(neighborsHeight)
+    #print(f'Best height is : {bestHeight}')
+    #print(f'Best neighbour index is : {bestHeightIdx}')
+    #print(f'Original solution height is : {getHeight(gloutonList)}')
+    return neighborsList[bestHeightIdx]
