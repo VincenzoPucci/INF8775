@@ -1,4 +1,3 @@
-from sklearn import neighbors
 from utils import takeArea, fitsOnBloc, getHeight
 from random import randint
 

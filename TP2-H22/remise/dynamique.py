@@ -1,4 +1,3 @@
-import imp
 from utils import takeArea, fitsOnBloc
 
 #On prend le dernier bloc ajouter dans results comme currentBloc
