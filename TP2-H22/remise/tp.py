@@ -75,7 +75,7 @@ def main(argv):
     if showTime:
         print(diff*1000)
     
-    return height, diff
+    return result, height, diff
 
 
 if __name__ == "__main__":
