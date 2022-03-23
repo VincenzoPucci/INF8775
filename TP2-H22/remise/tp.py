@@ -7,6 +7,8 @@ from dynamique import dynamique
 from tabou import tabou
 from utils import getHeight
 
+import os
+
 
 def getBlocks(path):
     with open(path, 'r') as pointFile:
@@ -24,6 +26,7 @@ def main(argv):
     showTime = False
 
     opts, args = getopt(argv, "a:e:pt")
+
     for opt, arg in opts:
         if opt == "-a" and (arg == "glouton" or arg == "progdyn" or arg == "tabou"):
             algoType = arg
@@ -67,10 +70,12 @@ def main(argv):
 
     if showBlocs:
         for bloc in result:
-            print(bloc)
+            print(f"{bloc[0]} {bloc[1]} {bloc[2]}")
 
     if showTime:
         print(diff*1000)
+    
+    #return height, diff
 
 
 if __name__ == "__main__":
