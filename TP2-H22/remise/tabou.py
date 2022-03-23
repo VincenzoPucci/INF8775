@@ -14,9 +14,9 @@ def getNeighbors(blockList, initial_solution):
                 idxIn = sol.index(blocIn)+1
                 sol.insert(idxIn, blocOut)
                 while idxIn < len(sol)-1: #check if upper block are still legal
-                    if not fitsOnBloc(sol[idxIn], sol[idxIn+1]):
-                        sol_tabou.append(sol[idxIn])
-                        sol.pop(idxIn)
+                    if not fitsOnBloc(sol[idxIn], sol[idxIn+1]): #if not
+                        sol_tabou.append(sol[idxIn+1]) #add to tabou list
+                        sol.pop(idxIn+1) #delete illegal block
                     else:
                         idxIn += 1
                 neighborsList.append(sol)
@@ -25,12 +25,12 @@ def getNeighbors(blockList, initial_solution):
     return neighborsList, tabouList
 
 def tabou(blockList, gloutonList):
-    seed(10)
-    #print(f'Original solution height is : {getHeight(gloutonList)}')
+    seed(10) #fixed seed for reproduceability
+
     bestNeighbor = gloutonList
     tabouList = [[] for i in range(11)] #acts as a waiting queue
     for i in range(100):
-        #add "free" blocks from the tabou list bakc into the block list
+        #add "free" blocks from the tabou list bakc into the available block list
         freeBlock = tabouList.pop(0)
         blockList.extend(freeBlock)
 
@@ -51,5 +51,5 @@ def tabou(blockList, gloutonList):
         else:
             bestHeight = currentHeight
         tabouList.append([])
-    #print(f'Best height is : {getHeight(bestNeighbor)}')
+
     return bestNeighbor
