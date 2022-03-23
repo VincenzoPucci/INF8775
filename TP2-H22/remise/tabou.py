@@ -1,6 +1,5 @@
 from utils import takeArea, fitsOnBloc, getHeight
-from random import randint
-
+from random import randint, seed
 
 def getNeighbors(blockList, initial_solution):
     """returns list of neighbor solutions and list of tabou block of each neighbors"""
@@ -26,6 +25,7 @@ def getNeighbors(blockList, initial_solution):
     return neighborsList, tabouList
 
 def tabou(blockList, gloutonList):
+    seed(10)
     #print(f'Original solution height is : {getHeight(gloutonList)}')
     bestNeighbor = gloutonList
     tabouList = [[] for i in range(11)] #acts as a waiting queue
