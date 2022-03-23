@@ -7,7 +7,7 @@ from dynamique import dynamique
 from tabou import tabou
 from utils import getHeight
 
-import os
+from dynamique_2 import dynamique_2
 
 
 def getBlocks(path):
@@ -49,23 +49,23 @@ def main(argv):
     if algoType == "glouton":
         time_init = time.perf_counter()
         result = glouton(blockList.copy())
-        height = getHeight(result)
         time_fin = time.perf_counter()
+        height = getHeight(result.copy())
         diff = time_fin - time_init
 
     elif algoType == "progdyn":
         time_init = time.perf_counter()
-        result = dynamique(blockList.copy())
-        height = getHeight(result)
+        result = dynamique_2(blockList.copy())
         time_fin = time.perf_counter()
+        height = getHeight(result.copy())
         diff = time_fin - time_init
 
     elif algoType == "tabou":
         time_init = time.perf_counter()
         gloutonList = glouton(blockList.copy())
         result = tabou(blockList.copy(), gloutonList.copy())
-        height = getHeight(result)
         time_fin = time.perf_counter()
+        height = getHeight(result.copy())
         diff = time_fin - time_init
 
     if showBlocs:
@@ -75,7 +75,7 @@ def main(argv):
     if showTime:
         print(diff*1000)
     
-    #return height, diff
+    return height, diff
 
 
 if __name__ == "__main__":
