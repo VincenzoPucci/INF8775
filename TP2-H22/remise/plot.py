@@ -4,11 +4,14 @@ import numpy as np
 def nlogn(x):
     return x*np.log(x)
 
-def n_pow4(x):
-    return x**4
+def n_pow3(x):
+    return x**3
+
+def n_2(x):
+    return x**2
 
 def test_rapport(time, sample_size, f, label):
-    x = np.arrange(0, max(sample_size))
+    x = np.arange(0, max(sample_size))
     n = np.array(sample_size)
     f_n = f(n)
     rapport = np.array(time)/f_n
@@ -16,20 +19,24 @@ def test_rapport(time, sample_size, f, label):
 
     fig = plt.figure()
     plt.plot(sample_size, rapport, 'ob')
-    plt.plot(x, c*x, '-r', label = f"y = {c}")
+    #plt.plot(x, c*np.ones(len(x)), '-r', label = f"y = {c}")
     plt.legend()
-    plt.title(f"test rapport {label}/{f}")
+    plt.title(f"test rapport {label}")
     plt.xlabel('taille exemplaire')
-    plt.ylabel(f'rapport consomation/{f}')
-    plt.savefig(f'rapport_{label}_{f}.png')
+    plt.ylabel(f'rapport consomation')
+    plt.savefig(f'rapport_{label}.png')
     plt.show()
 
 def test_puissance(time, sample_size, label):
-    x = np.arrange(0, max(sample_size))
+    x = np.arange(0, max(sample_size))
 
     plt.loglog(sample_size, time, 'ob')
-    b, m = np.polyfit(sample_size, time, 1)
-    plt.plot(x, m*x + b, '-r', label = f'y = {m}*x + {b}')
+    logA = np.log(sample_size)
+    logB = np.log(time)
+    coeffs = np.polyfit(logA, logB, deg=1)
+    poly = np.poly1d(coeffs)
+    def yfit(x): return np.exp(poly(np.log(x)))
+    plt.loglog(sample_size, yfit(sample_size), '-r', label = f"régression linéaire: y = {np.around(poly[1], 2)}x + {np.around(poly[0], 2)}")
     plt.title(label)
     plt.xlabel('log taille exemplaire')
     plt.ylabel(f'log consommation')
@@ -38,19 +45,20 @@ def test_puissance(time, sample_size, label):
     plt.show()
 
 if __name__ == "__main__":
-    full_example_size = [100, 500, 1000, 5000, 10000, 50000, 100000]
+    full_example_size = [100, 500, 1000]
 
-    time_glouton = []
-    time_dyn = []
-    time_tabou = []
+    times = [[0.0003353499982040375, 0.03837472001905553, 1.1056947799981571], [0.0016419199877418579, 0.9923582699964755, 13.864413239993155], [0.0032874599855858833, 3.926810420001857, 38.429799999989335]]
+    time_glouton = [t[0] for t in times]
+    time_dyn = [t[1] for t in times]
+    time_tabou = [t[2] for t in times]
 
-    test_rapport(time_glouton, full_example_size, nlogn, 'glouton')
-    test_puissance(time_dyn, full_example_size, 'dynamique')
-    test_rapport(time_tabou, full_example_size, n_pow4, 'tabou')
+    tower_size = [35.6, 83.7, 116.4]
 
-
-
-
+    # test_rapport(time_glouton, full_example_size, nlogn, 'glouton')
+    # test_puissance(time_dyn, full_example_size, 'dynamique')
+    # test_rapport(time_tabou, full_example_size, n_2, 'tabou')
+    #plt.plot(full_example_size, tower_size)
+    #plt.show()
 
 
 

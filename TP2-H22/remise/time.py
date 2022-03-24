@@ -6,7 +6,7 @@ if __name__ == "__main__":
     time_list = []
     height_list = []
     length_list = []
-    full_example_size = [100, 500, 1000, 5000, 10000, 50000, 100000]
+    full_example_size = [100, 500, 1000, 5000, 10000]
     n_sample = 10
     for sz in full_example_size:
         t_avg = []
