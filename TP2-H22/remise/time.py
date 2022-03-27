@@ -18,7 +18,7 @@ if __name__ == "__main__":
     length_avg_list = []
     full_example_size = [100, 500, 1000, 5000, 10000, 50000]
     n_sample = 10
-    for sz in [100]:
+    for sz in full_example_size:
         print(f"n= {sz}")
         t_avg = []
         h_avg = []
