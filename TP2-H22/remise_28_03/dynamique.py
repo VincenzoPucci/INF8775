@@ -1,6 +1,6 @@
 from utils import takeArea, fitsOnBloc
 
-def dynamique_2(blockList: list):
+def dynamique(blockList: list):
     blockList.sort(reverse=True, key=takeArea)
     H = [] #best tower height with block "i" on top
     last = [] #last block on which the current is sitting in the best configuration
