@@ -1,4 +1,4 @@
-from utils import compute_energy
+from utils import compute_energy, count_unused_link
 
 
 best_score = 0
@@ -6,8 +6,7 @@ best_score = 0
 def lower_bound(sol, H, G):
     """Compute lower bound on energy given an intermediate solution"""
 
-    score = compute_energy(sol)
-    #score += qqch
+    score = compute_energy(sol) + min(H) * count_unused_link(sol, G)
     return score
 
 def branch_and_bound(initial_sol, H, G):
