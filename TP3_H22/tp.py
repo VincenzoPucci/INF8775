@@ -14,3 +14,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+""" Data types:
+solution: dictionnaire {node_id : atom type}
+H: List of list (matrix) of energy
+G: List of links
+"""
