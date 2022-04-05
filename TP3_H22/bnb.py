@@ -5,9 +5,7 @@ best_score = 0
 
 def lower_bound(sol, H, G):
     """Compute lower bound on energy given an intermediate solution"""
-
-    score = compute_energy(sol) + min(H) * count_unused_link(sol, G)
-    return score
+    return compute_energy(sol) + min(H) * count_unused_link(sol, G)
 
 def branch_and_bound(initial_sol, H, G):
     if None not in initial_sol:
