@@ -11,6 +11,7 @@ def compute_energy(solution, H, G):
             energy += H[a][b]
     return energy
 
+
 def count_unused_link(solution, G):
     nb = 0
     for link in G:
@@ -19,3 +20,14 @@ def count_unused_link(solution, G):
         if a == None or b == None:
             nb += 1
     return nb
+
+
+# Gets sum of all the lines of the energy matrice
+def getLineVal(H):
+    valAt = []
+    for list in H:
+        val = 0
+        for i in list:
+            val += i
+        valAt.append(val)
+    return valAt

@@ -1,3 +1,6 @@
+from utils import compute_energy
+from glouton import glouton
+
 t = 0  # nb d'atomes totals
 k = 0  # nb types d'atomes
 A = 0  # nb arretes
@@ -16,6 +19,7 @@ def getData(path):
                     max = 4 + k
 
                 elif idx == 2:
+                    global nbAt
                     nbAt = list(int(x) for x in x.split())
 
                 elif idx >= 4 and idx <= max:
@@ -29,6 +33,9 @@ def getData(path):
 
 def main():
     getData("N5_K3_0")
+    solution = glouton(H.copy(), G.copy(), nbAt.copy())
+    energy = compute_energy(solution, H, G)
+    print(energy)
 
 
 if __name__ == "__main__":
