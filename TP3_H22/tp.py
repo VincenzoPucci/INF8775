@@ -1,9 +1,9 @@
-t = 0
-k = 0
-A = 0
-nbAt = []
-H = []
-G = []
+t = 0  # nb d'atomes totals
+k = 0  # nb types d'atomes
+A = 0  # nb arretes
+nbAt = []  # liste nb atome de chaque type
+H = []  # matrice energie
+G = []  # liste des arretes
 
 
 def getData(path):
@@ -29,8 +29,6 @@ def getData(path):
 
 def main():
     getData("N5_K3_0")
-    print(H)
-    print(G)
 
 
 if __name__ == "__main__":
