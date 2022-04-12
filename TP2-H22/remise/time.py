@@ -16,7 +16,7 @@ if __name__ == "__main__":
     time_avg_list = []
     height_avg_list = []
     length_avg_list = []
-    full_example_size = [100, 500, 1000, 5000, 10000, 50000]
+    full_example_size = [10000, 50000, 100000]
     n_sample = 10
     for sz in full_example_size:
         print(f"n= {sz}")
