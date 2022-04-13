@@ -36,14 +36,17 @@ def main():
     t, k, A, nbAt, H, G = getData("N100_K3_0")
 
     #initial_sol = {key: None for key in range(t)}
-    #atomes_left = {i: nbAt[i] for i in range(k)}  
+    #atomes_left = {i: nbAt[i] for i in range(k)}
     #branch_and_bound(initial_sol, H, G, atomes_left)
 
-    solution = glouton(H.copy(), G.copy(), nbAt.copy())
+    nbLeft = 25  # Nombre d'atome qu'on veut qui reste après le glouton
+
+    solution = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft)
     print_sol(solution)
     energy = compute_energy(solution, H, G)
     print(energy)
-    
+
+
 if __name__ == "__main__":
     main()
 

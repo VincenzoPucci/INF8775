@@ -18,24 +18,26 @@ def getPositionList(G):
                    key=lambda item: item[1], reverse=True))
 
 
-def glouton(H, G, nbAt):
+def glouton(H, G, nbAt, nbLeft):
     valAt = getLineVal(H)
     positionList = getPositionList(G)
-
+    size = len(positionList) - nbLeft
+    
     solution = {}
-    for val in positionList:
+    for idx, val in enumerate(positionList):
+        index_min = None
         pos = val[0]
-        index_min = min(range(len(valAt)), key=valAt.__getitem__)
-        nbAt[index_min] -= 1
-        if nbAt[index_min] < 0:
-            found = False
-            while found == False:
-                valAt[index_min] = 10000000
-                index_min = min(range(len(valAt)), key=valAt.__getitem__)
-                nbAt[index_min] -= 1
-                if nbAt[index_min] >= 0:
-                    found = True
-
+        if idx < size:
+            index_min = min(range(len(valAt)), key=valAt.__getitem__)
+            nbAt[index_min] -= 1
+            if nbAt[index_min] < 0:
+                found = False
+                while found == False:
+                    valAt[index_min] = 10000000
+                    index_min = min(range(len(valAt)), key=valAt.__getitem__)
+                    nbAt[index_min] -= 1
+                    if nbAt[index_min] >= 0:
+                        found = True
         solution.update({pos: index_min})
 
     solution = dict(sorted(solution.items(),
