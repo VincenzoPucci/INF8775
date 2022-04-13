@@ -31,3 +31,7 @@ def getLineVal(H):
             val += i
         valAt.append(val)
     return valAt
+
+def print_sol(dict_sol):
+    [print(i, end = ' ') for i in dict_sol.values()]
+    print("")
