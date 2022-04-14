@@ -34,13 +34,12 @@ def getData(path):
 
 
 def main():
-    t, k, A, nbAt, H, G = getData("N100_K3_0")
+    t, k, A, nbAt, H, G = getData("Test1")
 
-    nbLeft = 10
+    nbLeft = 5
     #initial_sol = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft)
     for i in range(10):
-        initial_sol, atomes_left, nodes_left = set_up(nbAt, t, t-nbLeft)
-        print_sol(initial_sol)
+        initial_sol, atomes_left, nodes_left = set_up(nbAt, t, 0)
         #atomes_left = count_atomes_left(initial_sol, k, nbAt)
         branch_and_bound(initial_sol, H, G, atomes_left, nodes_left)
 
