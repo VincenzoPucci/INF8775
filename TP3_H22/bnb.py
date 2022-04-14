@@ -7,12 +7,14 @@ best_score = math.inf
 
 def lower_bound(sol, H, G, atomes_left):
     """Compute lower bound on energy given an intermediate solution"""
-    return compute_energy(sol, H, G) + sum([min(H[k]) * n for k, n in atomes_left.items()])
+    return compute_energy(sol, H, G) + count_unused_link(sol, G) * min([item for sublist in H for item in sublist])
 
 
-def branch_and_bound(initial_sol, H, G, atomes_left):
-    nodes_left = [key for key, value in initial_sol.items() if value is None]
+def branch_and_bound(initial_sol, H, G, atomes_left, nodes_left):
     
+    
+    #nodes_left = [key for key, value in initial_sol.items() if value is None]
+
     def explore(initial_sol, H, G, atomes_left, nodes_left):
         global best_score
         if not(None in initial_sol.values()):

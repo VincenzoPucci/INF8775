@@ -21,6 +21,11 @@ def count_unused_link(solution, G):
             nb += 1
     return nb
 
+def count_atomes_left(sol, k, nb_atomes):
+    atomes_count_sol = {i: list(sol.values()).count(i) for i in range(k)}
+    atomes_left = {i: nb_atomes[i] - atomes_count_sol[i] for i in range(k)}
+    return atomes_left
+
 
 # Gets sum of all the lines of the energy matrice
 def getLineVal(H):

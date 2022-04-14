@@ -1,6 +1,7 @@
 from bnb import branch_and_bound
-from utils import compute_energy, print_sol
+from utils import compute_energy, print_sol, count_atomes_left
 from glouton import glouton
+from lasvegas import set_up
 
 
 def getData(path):
@@ -35,16 +36,13 @@ def getData(path):
 def main():
     t, k, A, nbAt, H, G = getData("N100_K3_0")
 
-    #initial_sol = {key: None for key in range(t)}
-    #atomes_left = {i: nbAt[i] for i in range(k)}
-    #branch_and_bound(initial_sol, H, G, atomes_left)
-
-    nbLeft = 25  # Nombre d'atome qu'on veut qui reste après le glouton
-
-    solution = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft)
-    print_sol(solution)
-    energy = compute_energy(solution, H, G)
-    print(energy)
+    nbLeft = 10
+    #initial_sol = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft)
+    for i in range(10):
+        initial_sol, atomes_left, nodes_left = set_up(nbAt, t, t-nbLeft)
+        print_sol(initial_sol)
+        #atomes_left = count_atomes_left(initial_sol, k, nbAt)
+        branch_and_bound(initial_sol, H, G, atomes_left, nodes_left)
 
 
 if __name__ == "__main__":
