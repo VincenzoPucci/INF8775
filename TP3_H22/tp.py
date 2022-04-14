@@ -42,6 +42,14 @@ def main():
         initial_sol, atomes_left, nodes_left = set_up(nbAt, t, 0)
         #atomes_left = count_atomes_left(initial_sol, k, nbAt)
         branch_and_bound(initial_sol, H, G, atomes_left, nodes_left)
+    
+    # DECOMMENTE POUR VOIR COMMENT LE GLOUTON MARCHE
+    #t, k, A, nbAt, H, G = getData("N100_K3_0")
+    #nbLeft = [10,10,10]  # Nombre d'atome qu'on veut qui reste après le glouton
+    #solution = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft.copy())
+    #print_sol(solution)
+    #energy = compute_energy(solution, H, G)
+    #print(energy)
 
 
 if __name__ == "__main__":
