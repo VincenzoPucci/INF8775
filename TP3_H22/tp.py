@@ -1,8 +1,8 @@
 from bnb import branch_and_bound
-from utils import compute_energy, print_sol, count_atomes_left
+from utils import compute_energy, print_sol, count_atomes_left, count_nodes_left
 from glouton import glouton
 from lasvegas import set_up
-
+from recuit import recuit
 
 def getData(path):
     t = 0  # nb d'atomes totals
@@ -35,21 +35,14 @@ def getData(path):
 
 def main():
     t, k, A, nbAt, H, G = getData("Test1")
-
-    nbLeft = 5
-    #initial_sol = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft)
-    for i in range(10):
-        initial_sol, atomes_left, nodes_left = set_up(nbAt, t, 0)
-        #atomes_left = count_atomes_left(initial_sol, k, nbAt)
-        branch_and_bound(initial_sol, H, G, atomes_left, nodes_left)
     
     # DECOMMENTE POUR VOIR COMMENT LE GLOUTON MARCHE
     #t, k, A, nbAt, H, G = getData("N100_K3_0")
-    #nbLeft = [10,10,10]  # Nombre d'atome qu'on veut qui reste après le glouton
-    #solution = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft.copy())
-    #print_sol(solution)
-    #energy = compute_energy(solution, H, G)
-    #print(energy)
+    nbLeft = [0, 0, 0, 0]  # Nombre d'atome qu'on veut qui reste après le glouton
+    initial_sol = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft.copy())
+    atomes_left = count_atomes_left(initial_sol, k, nbAt)
+    nodes_left = count_nodes_left(initial_sol)
+    recuit(initial_sol, H, G)
 
 
 if __name__ == "__main__":

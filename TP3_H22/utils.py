@@ -26,6 +26,9 @@ def count_atomes_left(sol, k, nb_atomes):
     atomes_left = {i: nb_atomes[i] - atomes_count_sol[i] for i in range(k)}
     return atomes_left
 
+def count_nodes_left(sol):
+    return [key for key, value in sol.items() if value is None]
+
 
 # Gets sum of all the lines of the energy matrice
 def getLineVal(H):
