@@ -41,5 +41,6 @@ def getLineVal(H):
     return valAt
 
 def print_sol(dict_sol):
-    [print(i, end = ' ') for i in dict_sol.values()]
-    print("")
+    print(*dict_sol.values())
+    #[print(i, end = ' ') for i in dict_sol.values()]
+    #print("")

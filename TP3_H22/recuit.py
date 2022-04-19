@@ -3,7 +3,7 @@ from utils import compute_energy, print_sol
 import random
 import math
 
-def recuit(solution, H, G, argument = None):
+def recuit(solution, H, G, argument):
     best_score = compute_energy(solution, H, G)
     temperature = 10
     runtime = 180 #in seconds
@@ -18,7 +18,7 @@ def recuit(solution, H, G, argument = None):
             temperature = lam * temperature
         if energy < best_score:
             best_score = energy
-            if argument == "-p":
+            if argument:
                 print_sol(solution)
             else:
                 print(energy, flush=True)

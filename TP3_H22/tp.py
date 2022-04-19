@@ -1,8 +1,10 @@
-from bnb import branch_and_bound
-from utils import compute_energy, print_sol, count_atomes_left, count_nodes_left
+import sys
+from getopt import getopt
+
+from utils import count_atomes_left, count_nodes_left
 from glouton import glouton
-from lasvegas import set_up
 from recuit import recuit
+
 
 def getData(path):
     t = 0  # nb d'atomes totals
@@ -33,20 +35,35 @@ def getData(path):
     return (t, k, A, nbAt, H, G)
 
 
-def main():
-    t, k, A, nbAt, H, G = getData("Test1")
+def main(argv):
+
+    pathFile = None
+    showSol = False
+
+    opts, args = getopt(argv, "e:p")
+
+    for opt, arg in opts:
+        if opt == "-e":
+            pathFile = arg
+        elif opt == "-p":
+            showSol = True
     
-    # DECOMMENTE POUR VOIR COMMENT LE GLOUTON MARCHE
-    #t, k, A, nbAt, H, G = getData("N100_K3_0")
-    nbLeft = [0, 0, 0, 0]  # Nombre d'atome qu'on veut qui reste après le glouton
+    if not pathFile:
+        print("argument -e missing")
+        return
+
+    t, k, A, nbAt, H, G = getData(pathFile)
+
+    # Nombre d'atome qu'on veut qui reste après le glouton
+    nbLeft = [0, 0, 0, 0]
     initial_sol = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft.copy())
     atomes_left = count_atomes_left(initial_sol, k, nbAt)
     nodes_left = count_nodes_left(initial_sol)
-    recuit(initial_sol, H, G)
+    recuit(initial_sol, H, G, showSol)
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
 
 
 """ Data types:
