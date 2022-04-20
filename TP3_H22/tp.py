@@ -54,9 +54,7 @@ def main(argv):
 
     t, k, A, nbAt, H, G = getData(pathFile)
 
-    # Nombre d'atome qu'on veut qui reste après le glouton
-    nbLeft = [0, 0, 0, 0]
-    initial_sol = glouton(H.copy(), G.copy(), nbAt.copy(), nbLeft.copy())
+    initial_sol = glouton(H.copy(), G.copy(), nbAt.copy())
     atomes_left = count_atomes_left(initial_sol, k, nbAt)
     nodes_left = count_nodes_left(initial_sol)
     recuit(initial_sol, H, G, showSol)
