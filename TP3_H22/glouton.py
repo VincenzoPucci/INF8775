@@ -23,20 +23,18 @@ def glouton(H, G, nbAt):
     positionList = getPositionList(G)
 
     solution = {}
-    for idx, val in enumerate(positionList):
-        index_min = None
+    for val in positionList:
         pos = val[0]
-        if idx < len(positionList):
-            index_min = min(range(len(valAt)), key=valAt.__getitem__)
-            nbAt[index_min] -= 1
-            if nbAt[index_min] < 0:
-                found = False
-                while found == False:
-                    valAt[index_min] = 10000000
-                    index_min = min(range(len(valAt)), key=valAt.__getitem__)
-                    nbAt[index_min] -= 1
-                    if nbAt[index_min] >= 0:
-                        found = True
+        index_min = min(range(len(valAt)), key=valAt.__getitem__)
+        nbAt[index_min] -= 1
+        if nbAt[index_min] < 0:
+            found = False
+            while found == False:
+                valAt[index_min] = 10000000
+                index_min = min(range(len(valAt)), key=valAt.__getitem__)
+                nbAt[index_min] -= 1
+                if nbAt[index_min] >= 0:
+                    found = True
         solution.update({pos: index_min})
 
     solution = dict(sorted(solution.items(),
